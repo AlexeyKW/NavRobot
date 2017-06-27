@@ -5,6 +5,7 @@ using UnityEngine;
 public class Robot : MonoBehaviour {
 
     GameObject robot_obj;
+    bool isMoving = false;
 
     // Use this for initialization
     void Start() {
@@ -17,26 +18,77 @@ public class Robot : MonoBehaviour {
         {
             StartCoroutine(Forward(3));
         }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            StartCoroutine(Left(20));
+        }
     }
 
     public IEnumerator Forward(int mstime)
     {
-        robot_obj.transform.Translate(robot_obj.transform.forward * Time.deltaTime);
-        yield return new WaitForSeconds(mstime);
+        if (isMoving)
+        {
+            yield break; ///exit if this is still running
+        }
+        isMoving = true;
+        float counter = 0;
+        while (counter < mstime)
+        {
+            counter += Time.deltaTime;
+            robot_obj.transform.Translate(robot_obj.transform.forward * Time.deltaTime);
+            yield return null;
+        }
+        isMoving = false;
     }
 
-    public void Backward(int mstime)
+    public IEnumerator Backward(int mstime)
     {
-
+        if (isMoving)
+        {
+            yield break; ///exit if this is still running
+        }
+        isMoving = true;
+        float counter = 0;
+        while (counter < mstime)
+        {
+            counter += Time.deltaTime;
+            robot_obj.transform.Translate(robot_obj.transform.forward * -Time.deltaTime);
+            yield return null;
+        }
+        isMoving = false;
     }
 
-    public void Left(int mstime)
+    public IEnumerator Left(int mstime)
     {
-
+        if (isMoving)
+        {
+            yield break; ///exit if this is still running
+        }
+        isMoving = true;
+        float counter = 0;
+        while (counter < mstime)
+        {
+            counter += Time.deltaTime;
+            robot_obj.transform.Rotate(Vector3.up * -Time.deltaTime);
+            yield return null;
+        }
+        isMoving = false;
     }
 
-    public void Right(int mstime)
+    public IEnumerator Right(int mstime)
     {
-
+        if (isMoving)
+        {
+            yield break; ///exit if this is still running
+        }
+        isMoving = true;
+        float counter = 0;
+        while (counter < mstime)
+        {
+            counter += Time.deltaTime;
+            robot_obj.transform.Rotate(Vector3.up * Time.deltaTime);
+            yield return null;
+        }
+        isMoving = false;
     }
 }
