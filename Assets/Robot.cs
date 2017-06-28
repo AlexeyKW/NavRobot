@@ -22,6 +22,10 @@ public class Robot : MonoBehaviour {
         {
             StartCoroutine(Left(20));
         }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            StartCoroutine(Left(20));
+        }
     }
 
     public IEnumerator Forward(int mstime)
@@ -90,5 +94,11 @@ public class Robot : MonoBehaviour {
             yield return null;
         }
         isMoving = false;
+    }
+
+    public IEnumerator Init()
+    {
+        yield return StartCoroutine(Forward(3));
+
     }
 }
